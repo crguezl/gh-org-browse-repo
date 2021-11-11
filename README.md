@@ -35,7 +35,7 @@ Options:
 ## Example
 
 Search for repos with name that matches `github-readme` and filter those that match `gonzalez` inside the organization
-`ULL-MFP-AET-2122`. Show how `gh`cli will be called:
+`ULL-MFP-AET-2122`. Show how `gh` cli will be called:
 
 ```
 ✗ gh org-browse-repo -o ULL-MFP-AET-2122 -S github-readme -r gonzalez -d  -s
