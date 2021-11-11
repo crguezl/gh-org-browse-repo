@@ -9,11 +9,13 @@ const shell = require('shelljs');
 const { Command } = require('commander');
 
 const program = new Command();
+
 program.version(require('./package.json').version);
 
 program
   .allowUnknownOption()
-  .name("gh org-browse [options]")
+  .name("gh org-browse")
+  .description('Open tabs in your browser for all the matching repos inside the org')
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
   .option('-d, --dryrun', 'shows the repos that will be open')
   .option('-r, --regexp <regexp>', 'filter <query> results using <regexp>')
@@ -21,12 +23,12 @@ program
 
 program.addHelpText('after', `
   - You can set the default organization through the GITHUB_ORG environment variable
+  - If the org is not specified and you issue the command inside a repo the org of that repo will be used 
   - Additional options will be passed to "gh browse":
       -b, --branch string            Select another branch by passing in the branch name
       -c, --commit                   Open the last commit
       -n, --no-browser               Print destination URL instead of opening the browser
       -p, --projects                 Open repository projects
-      -R, --repo [HOST/]OWNER/REPO   Select another repository using the [HOST/]OWNER/REPO format
       -s, --settings                 Open repository settings
       -w, --wiki                     Open repository wiki
 `);
@@ -158,7 +160,13 @@ debugger;
 
 let org = options.org || process.env["GITHUB_ORG"];
 
-if (!org) program.help();
+
+if (!org) {
+  let r = shell.exec(`gh browse -n`);
+  if (r.code !== 0 ) program.help();
+  org = r.stdout.split('/').slice(-2)[0];
+  //deb(org);
+}
 
 let repos = getRepoListFromAPISearch(options.search, org);
 
