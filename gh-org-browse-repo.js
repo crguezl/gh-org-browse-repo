@@ -15,9 +15,9 @@ program
   .allowUnknownOption()
   .name("gh org-browse [options]")
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
-  .option('-j, --json', 'returns the full json object')
+  .option('-d, --dryrun', 'shows the repos that will be open')
   .option('-r, --regexp <regexp>', 'filter <query> results using <regexp>')
-  .option('-o --org <org>', 'default organization or user');
+  .option('-o --org <org>', 'set default organization or user');
 
 program.addHelpText('after', `
   - You can set the default organization through the GITHUB_ORG environment variable
@@ -176,6 +176,6 @@ deb(repos)
 repos.forEach(name => {
 
   let command = `gh browse -R ${org}/${name} ${remainingArgs}`
-  deb(command);
-  shell.exec(`gh browse -R ${org}/${name} ${program.args}`)
+  if (options.dryrun) deb(command);
+  else shell.exec(command)
 })

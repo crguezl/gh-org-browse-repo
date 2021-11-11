@@ -9,4 +9,4 @@ fi
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # Pass arguments through to another command
-node ${SCRIPT_DIR}/gh-org-browse.js "$@" 
+node ${SCRIPT_DIR}/gh-org-browse-repo.js "$@" 
