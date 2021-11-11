@@ -36,10 +36,10 @@ program.parse(process.argv);
 const remainingArgs = program.args.join(" ");
 
 
-deb(remainingArgs);
+//deb('remainingArgs = '+remainingArgs);
 
 const options = program.opts();
-deb(options);
+//deb(options);
 
 if (!shell.which('git')) {
   showError('Sorry, this extension requires git installed!');
@@ -76,7 +76,7 @@ const ghCont = (arg,cb) => shContinue("gh", arg, cb);
 
 
 function getRepoListFromAPISearch(search, org) {
-  deb(`searching for ${search} in ${org}`)
+  // deb(`searching for ${search} in ${org}`)
   let query;
   const allRepos = (org) => `
   query($endCursor: String) {
@@ -162,20 +162,15 @@ if (!org) program.help();
 
 let repos = getRepoListFromAPISearch(options.search, org);
 
-
-deb(repos)
-
 let regexp = /./;
 if (options.regexp) {
   regexp = new RegExp(options.regexp, 'i');
 }
 repos = repos.filter(r => regexp.test(r)) 
 
-deb(repos)
-
 repos.forEach(name => {
 
   let command = `gh browse -R ${org}/${name} ${remainingArgs}`
-  if (options.dryrun) deb(command);
+  if (options.dryrun) console.log(command);
   else shell.exec(command)
 })
