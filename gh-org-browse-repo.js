@@ -14,7 +14,7 @@ program.version(require('./package.json').version);
 
 program
   .allowUnknownOption()
-  .name("gh org-browse")
+  .name("gh org-browse-repo")
   .description('Open tabs in your browser for all the matching repos inside the org')
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
   .option('-d, --dryrun', 'shows the repos that will be open')
