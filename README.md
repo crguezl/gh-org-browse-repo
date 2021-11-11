@@ -7,8 +7,11 @@ gh extension install crguezl/gh-org-browse-repo
 ## Usage
 
 ```
-➜  gh-org-browse-repo git:(main) ✗ gh help org-browse-repo
-Usage: gh org-browse [options] [options]
+$ gh help org-browse-repo
+
+Usage: gh org-browse [options]
+
+Open tabs in your browser for all the matching repos inside the org
 
 Options:
   -V, --version          output the version number
@@ -19,17 +22,20 @@ Options:
   -h, --help             display help for command
 
   - You can set the default organization through the GITHUB_ORG environment variable
-  - Additional gh options:
+  - If the org is not specified and you issue the command inside a repo the org of that repo will be used
+  - Additional options will be passed to "gh browse":
       -b, --branch string            Select another branch by passing in the branch name
       -c, --commit                   Open the last commit
       -n, --no-browser               Print destination URL instead of opening the browser
       -p, --projects                 Open repository projects
-      -R, --repo [HOST/]OWNER/REPO   Select another repository using the [HOST/]OWNER/REPO format
       -s, --settings                 Open repository settings
       -w, --wiki                     Open repository wiki
 ```
 
 ## Example
+
+Search for repos with name that matches `github-readme` and filter those that match `gonzalez` inside the organization
+`ULL-MFP-AET-2122`. Show how `gh`cli will be called:
 
 ```
 ➜  gh-org-browse-repo git:(main) ✗ gh org-browse-repo -o ULL-MFP-AET-2122 -S github-readme -r gonzalez -d  -s
