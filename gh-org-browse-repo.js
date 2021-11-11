@@ -21,7 +21,7 @@ program
 
 program.addHelpText('after', `
   - You can set the default organization through the GITHUB_ORG environment variable
-  - Additional gh options:
+  - Additional options will be passed to "gh browse":
       -b, --branch string            Select another branch by passing in the branch name
       -c, --commit                   Open the last commit
       -n, --no-browser               Print destination URL instead of opening the browser
