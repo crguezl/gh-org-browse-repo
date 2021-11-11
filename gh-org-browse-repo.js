@@ -185,7 +185,7 @@ if (options.regexp) {
 repos = repos.filter(r => regexp.test(r)) 
 
 if (repos.length === 0 ) {
-  console.error("No repos found!");
+  console.error(`No repos matching query found in org ${org}!`);
   process.exit(0);
 }
 repos.forEach(name => {
