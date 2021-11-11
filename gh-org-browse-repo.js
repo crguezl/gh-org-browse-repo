@@ -160,13 +160,21 @@ debugger;
 
 let org = options.org || process.env["GITHUB_ORG"];
 
-
 if (!org) {
-  let r = shell.exec(`gh browse -n`);
-  if (r.code !== 0 ) program.help();
-  org = r.stdout.split('/').slice(-2)[0];
-  //deb(org);
-}
+  let r = shell.exec(`gh browse -n`, {silent: true});
+  if (r.code !== 0 ) {
+    r = shell.exec(`gh api user --jq .login`, {silent: true});
+    if (r. code !== 0 ) {
+      console.error("Please, specify an organization!")
+      program.help();
+    } else {
+      org = r.stdout; // user
+    }
+  } else {
+    org = r.stdout.split('/').slice(-2)[0]; // this repo owner
+    //deb(org);
+  }
+} 
 
 let repos = getRepoListFromAPISearch(options.search, org);
 
@@ -176,6 +184,10 @@ if (options.regexp) {
 }
 repos = repos.filter(r => regexp.test(r)) 
 
+if (repos.length === 0 ) {
+  console.error("No repos found!");
+  process.exit(0);
+}
 repos.forEach(name => {
 
   let command = `gh browse -R ${org}/${name} ${remainingArgs}`
