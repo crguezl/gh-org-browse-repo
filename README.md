@@ -38,7 +38,7 @@ Search for repos with name that matches `github-readme` and filter those that ma
 `ULL-MFP-AET-2122`. Show how `gh`cli will be called:
 
 ```
-➜  gh-org-browse-repo git:(main) ✗ gh org-browse-repo -o ULL-MFP-AET-2122 -S github-readme -r gonzalez -d  -s
+✗ gh org-browse-repo -o ULL-MFP-AET-2122 -S github-readme -r gonzalez -d  -s
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-adela-gonzalez-maury-alu0101116204 -s
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-ivan-gonzalez-aguiar-alu0100551266 -s
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-nestor-gonzalez-lopez-alu0100108859 -s
