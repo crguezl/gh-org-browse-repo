@@ -1,35 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -e
 
-echo "Hello gh-org-browse!"
-
-# Snippets to help get started:
-
 # Determine if an executable is in the PATH
-# if ! type -p ruby >/dev/null; then
-#   echo "Ruby not found on the system" >&2
-#   exit 1
-# fi
+if ! type -p node >/dev/null; then
+   echo "Node not found on the system" >&2
+   exit 1
+fi
 
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # Pass arguments through to another command
-# gh issue list "$@" -R cli/cli
-
-# Using the gh api command to retrieve and format information
-# QUERY='
-#   query($endCursor: String) {
-#     viewer {
-#       repositories(first: 100, after: $endCursor) {
-#         nodes {
-#           nameWithOwner
-#           stargazerCount
-#         }
-#       }
-#     }
-#   }
-# '
-# TEMPLATE='
-#   {{- range $repo := .data.viewer.repositories.nodes -}}
-#     {{- printf "name: %s - stargazers: %v\n" $repo.nameWithOwner $repo.stargazerCount -}}
-#   {{- end -}}
-# '
-# exec gh api graphql -f query="${QUERY}" --paginate --template="${TEMPLATE}"
+node ${SCRIPT_DIR}/gh-org-browse.js "$@" 

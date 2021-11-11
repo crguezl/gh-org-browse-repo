@@ -6,7 +6,8 @@ gh org-browse [owner]
   -p  --people
   -t  --teams
   -P  --packages
-  -r --repositories
+  -R --repositories
+  -r --regexp 
 ```
 
 if org is not specified opens the owner of the current repo

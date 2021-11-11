@@ -1,0 +1,24 @@
+{
+  "name": "gh-org-browse",
+  "version": "1.0.0",
+  "description": "```",
+  "main": "gh-org-browse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crguezl/gh-org-browse.git"
+  },
+  "keywords": [],
+  "author": "Casiano Rodriguez Leon <crguezl@ull.edu.es> (https://crguezl.github.io/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crguezl/gh-org-browse/issues"
+  },
+  "homepage": "https://github.com/crguezl/gh-org-browse#readme",
+  "dependencies": {
+    "commander": "^8.3.0",
+    "shelljs": "^0.8.4"
+  }
+}
