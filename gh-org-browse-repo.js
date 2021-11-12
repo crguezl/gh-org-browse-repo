@@ -5,8 +5,10 @@ const deb = (...args) => {
   console.log(ins(...args, { depth: null }));
 };
 
+const open = require('open');
 const shell = require('shelljs');
 const { Command } = require('commander');
+const prompt = require('prompt-sync')();
 
 const program = new Command();
 
@@ -16,8 +18,10 @@ program
   .allowUnknownOption()
   .name("gh org-browse-repo")
   .description('Open tabs in your browser for all the matching repos inside the org')
+  .option('-C, --commit', 'open the commits page')
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
   .option('-d, --dryrun', 'shows the repos that will be open')
+  .option('-P, --pause <number>', 'pause <number> of open tabs', 20)
   .option('-r, --regexp <regexp>', 'filter <query> results using <regexp>')
   .option('-o --org <org>', 'set default organization or user');
 
@@ -176,7 +180,7 @@ if (!org) {
   }
 } 
 
-let repos = getRepoListFromAPISearch(options.search, org);
+let repos = getRepoListFromAPISearch(options.search || '.', org);
 
 let regexp = /./;
 if (options.regexp) {
@@ -188,9 +192,27 @@ if (repos.length === 0 ) {
   console.error(`No repos matching query found in org ${org}!`);
   process.exit(0);
 }
-repos.forEach(name => {
 
-  let command = `gh browse -R ${org}/${name} ${remainingArgs}`
-  if (options.dryrun) console.log(command);
-  else shell.exec(command)
+let commands = [];
+repos.forEach(name => {
+  let command = `gh browse -R ${org}/${name} ${remainingArgs}`;
+  if (options.commit) { // While the gh people fix the commit bug in gh cli ...
+    let url = `https://github.com/${org}/${name}/commits`;
+    command = url;
+  }
+  commands.push(command);
+})
+
+commands.forEach((command,i) => {
+  if (options.dryrun) console.log(command)
+  else {
+
+    if (options.commit) open(command) 
+    else shell.exec(command, {silent: true});
+
+    if ((i+1) % options.pause === 0) {
+      let input = prompt("Press 'Q' to quit any other key to continue: ")
+      if ((/Q/i).test(input)) process.exit(0);
+    }
+  }
 })

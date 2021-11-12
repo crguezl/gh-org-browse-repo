@@ -7,16 +7,16 @@ gh extension install crguezl/gh-org-browse-repo
 ## Usage
 
 ```
-$ gh help org-browse-repo
-
-Usage: gh org-browse [options]
+Usage: gh org-browse-repo [options]
 
 Open tabs in your browser for all the matching repos inside the org
 
 Options:
   -V, --version          output the version number
+  -C, --commit           open the commits page
   -S, --search <query>   search <query> using GitHub Search API. A dot '.' refers to all the repos
   -d, --dryrun           shows the repos that will be open
+  -P, --pause <number>   pause <number> of open tabs (default: 20)
   -r, --regexp <regexp>  filter <query> results using <regexp>
   -o --org <org>         set default organization or user
   -h, --help             display help for command

@@ -19,6 +19,8 @@
   "homepage": "https://github.com/crguezl/gh-org-browse#readme",
   "dependencies": {
     "commander": "^8.3.0",
+    "open": "^8.4.0",
+    "prompt-sync": "^4.2.0",
     "shelljs": "^0.8.4"
   }
 }
