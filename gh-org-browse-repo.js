@@ -23,6 +23,7 @@ program
   .option('-d, --dryrun', 'shows the repos that will be open')
   .option('-P, --pause <number>', 'pause <number> of open tabs', 20)
   .option('-r, --regexp <regexp>', 'filter <query> results using <regexp>')
+  .option('-v, --dontmatch <regexp>', 'filter <query> results not matching <regexp>')
   .option('-o --org <org>', 'set default organization or user');
 
 program.addHelpText('after', `
@@ -187,6 +188,12 @@ if (options.regexp) {
   regexp = new RegExp(options.regexp, 'i');
 }
 repos = repos.filter(r => regexp.test(r)) 
+
+let dontmatch = null;
+if (options.dontmatch) {
+  dontmatch = new RegExp(options.dontmatch, 'i');
+  repos = repos.filter(r => !dontmatch.test(r)) 
+}
 
 if (repos.length === 0 ) {
   console.error(`No repos matching query found in org ${org}!`);
