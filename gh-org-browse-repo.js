@@ -18,7 +18,7 @@ program
   .allowUnknownOption()
   .name("gh org-browse-repo")
   .description('Open tabs in your browser for all the matching repos inside the org')
-  .option('-C, --commit', 'open the commits page')
+  .option('-C, --commit', 'open the commit activity pages')
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
   .option('-d, --dryrun', 'shows the repos that will be open')
   .option('-P, --pause <number>', 'pause <number> of open tabs', 20)
@@ -197,7 +197,8 @@ let commands = [];
 repos.forEach(name => {
   let command = `gh browse -R ${org}/${name} ${remainingArgs}`;
   if (options.commit) { // While the gh people fix the commit bug in gh cli ...
-    let url = `https://github.com/${org}/${name}/commits`;
+    //let url = `https://github.com/${org}/${name}/commits`;
+    let url = `https://github.com/${org}/${name}/graphs/commit-activity`
     command = url;
   }
   commands.push(command);
