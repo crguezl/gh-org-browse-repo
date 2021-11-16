@@ -211,6 +211,17 @@ repos.forEach(name => {
   commands.push(command);
 })
 
+if (!options.dryrun) {
+  console.error(`${repos.length} repos match the query`);
+  console.error(`Tabs in your browser will be open in chunks of ${options.pause}. 
+After you review each chunk go back to the terminal and press 'Q' to quit or any other key to continue`)
+  if (repos.length > 5) {
+    console.error(`It is convenient for you to open a new window in your default browser`);
+    let input = prompt("Press 'Q' to quit, <Enter> to continue: ")
+    if ((/Q/i).test(input)) process.exit(0);
+  }
+}
+
 commands.forEach((command,i) => {
   if (options.dryrun) console.log(command)
   else {
