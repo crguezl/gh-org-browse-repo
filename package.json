@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/crguezl/gh-org-browse#readme",
   "dependencies": {
+    "@crguezl/gh-utilities": "^4.0.5",
     "commander": "^8.3.0",
     "open": "^8.4.0",
     "prompt-sync": "^4.2.0",

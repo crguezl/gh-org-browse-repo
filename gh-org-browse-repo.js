@@ -10,6 +10,8 @@ const shell = require('shelljs');
 const { Command } = require('commander');
 const prompt = require('prompt-sync')();
 
+const { getDefaultOrg } = require("@crguezl/gh-utilities");
+
 const program = new Command();
 
 program.version(require('./package.json').version);
@@ -163,7 +165,7 @@ function getRepoListFromAPISearch(search, org) {
 
 debugger;
 
-let org = options.org || process.env["GITHUB_ORG"];
+let org = options.org || getDefaultOrg() ||  process.env["GITHUB_ORG"];
 
 if (!org) {
   let r = shell.exec(`gh browse -n`, {silent: true});
@@ -196,7 +198,7 @@ if (options.dontmatch) {
 }
 
 if (repos.length === 0 ) {
-  console.error(`No repos matching query found in org ${org}!`);
+  console.error(`No repos matching query "${options.search}" found in org ${org}!`);
   process.exit(0);
 }
 
