@@ -43,3 +43,26 @@ gh browse -R ULL-MFP-AET-2122/github-profile-readme-adela-gonzalez-maury-alu0101
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-ivan-gonzalez-aguiar-alu0100551266 -s
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-nestor-gonzalez-lopez-alu0100108859 -s
 ```
+
+## Default org
+
+I use a couple of alias `cd` and `pwd` to set and get the current organization:
+
+```
+➜  gh-org-browse-repo git:(main) ✗ gh alias list | grep cd
+cd:	!gh config set current-org "$1" 2>/dev/null
+➜  gh-org-browse-repo git:(main) ✗ gh alias list | grep pwd
+pwd:	!gh config get current-org
+➜  gh-org-browse-repo git:(main) ✗ gh cd ULL-MFP-AET-2122
+➜  gh-org-browse-repo git:(main) ✗ gh pwd
+ULL-MFP-AET-2122
+```
+
+Now you can omit the org argument:
+
+```
+➜  gh-org-browse-repo git:(main) ✗ gh org-browse-repo -S github-readme -r gonzalez -d  -s
+gh browse -R ULL-MFP-AET-2122/github-profile-readme-ivan-gonzalez-aguiar-alu0100551266 -s
+gh browse -R ULL-MFP-AET-2122/github-profile-readme-adela-gonzalez-maury-alu0101116204 -s
+gh browse -R ULL-MFP-AET-2122/github-profile-readme-nestor-gonzalez-lopez-alu0100108859 -s
+```
