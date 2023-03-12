@@ -5,6 +5,7 @@ const deb = (...args) => {
   console.log(ins(...args, { depth: null }));
 };
 
+const {readFileSync } = require('fs');
 const open = require('open');
 const shell = require('shelljs');
 const { Command } = require('commander');
@@ -25,6 +26,7 @@ program
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
   .option('-d, --dryrun', 'shows the repos that will be open')
   .option('-P, --pause <number>', 'pause <number> of open tabs', 20)
+  .option('-f, --file <file>', 'read the list of students/members from <file>')
   .option('-r, --regexp <regexp>', 'filter <query> results using <regexp>')
   .option('-v, --dontmatch <regexp>', 'filter <query> results not matching <regexp>')
   .option('-o --org <org>', 'set default organization or user');
@@ -32,7 +34,7 @@ program
 program.addHelpText('after', `
   - You can set the default organization through the GITHUB_ORG environment variable
   - If the org is not specified and you issue the command inside a repo the org of that repo will be used 
-  - Additional options will be passed to "gh browse":
+  - The following additional options will be passed to "gh browse":
       -b, --branch string            Select another branch by passing in the branch name
       -c, --commit                   Open the last commit
       -n, --no-browser               Print destination URL instead of opening the browser
@@ -185,7 +187,28 @@ if (!org) {
 } 
 
 let repos = getRepoListFromAPISearch(options.search || '.', org);
+//console.log(repos);
 
+if (options.file) {
+  let studentsGroup = readFileSync(options.file, "utf-8");
+  //console.log(studentsGroup);
+  studentsGroup = studentsGroup.split('\n').filter(s => s.length > 0);
+  //console.log(studentsGroup);
+
+  repos = studentsGroup.map(s => {
+    let studentRepos = repos.filter(r => r.includes(s))
+    if (studentRepos.length === 0) {
+      console.error(`No repos found for student ${s}!`);
+      //process.exit(1);
+    }
+    if (studentRepos.length > 1) {
+      console.error(`Multiple repos found for student "${s}"!`);
+      process.exit(1);
+    }
+    return studentRepos[0];
+  }).filter(r => r !== undefined);
+  //console.log(repos);
+}
 let regexp = /./;
 if (options.regexp) {
   regexp = new RegExp(options.regexp, 'i');
