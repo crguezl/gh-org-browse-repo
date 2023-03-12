@@ -4,7 +4,7 @@
   "description": "```",
   "main": "gh-org-browse.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "push": "git push education main; git push upstream main"
   },
   "repository": {
     "type": "git",
