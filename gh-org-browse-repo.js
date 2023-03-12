@@ -20,7 +20,8 @@ program
   .allowUnknownOption()
   .name("gh org-browse-repo")
   .description('Open tabs in your browser for all the matching repos inside the org')
-  .option('-C, --commit', 'open the commit activity pages')
+  .option('-C, --commit', 'open the insight commits activity pages')
+  .option('-u, --pulse', 'open the insight pulse pages')
   .option('-S, --search <query>', "search <query> using GitHub Search API. A dot '.' refers to all the repos")
   .option('-d, --dryrun', 'shows the repos that will be open')
   .option('-P, --pause <number>', 'pause <number> of open tabs', 20)
@@ -210,6 +211,11 @@ repos.forEach(name => {
     let url = `https://github.com/${org}/${name}/graphs/commit-activity`
     command = url;
   }
+  if (options.pulse) { 
+    let url = `https://github.com/${org}/${name}/pulse`
+    command = url;
+    //console.log(command)
+  }
   commands.push(command);
 })
 
@@ -228,7 +234,7 @@ commands.forEach((command,i) => {
   if (options.dryrun) console.log(command)
   else {
 
-    if (options.commit) open(command) 
+    if (options.commit || options.pulse) open(command) 
     else shell.exec(command, {silent: true});
 
     if ((i+1) % options.pause === 0) {
