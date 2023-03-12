@@ -1,7 +1,7 @@
 ## Installation
 
 ```
-gh extension install crguezl/gh-org-browse-repo
+gh extension install gh-cli-for-education/gh-org-browse-repo
 ```
 
 ## Usage
