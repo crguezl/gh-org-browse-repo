@@ -91,3 +91,14 @@ gh browse -R ULL-MFP-AET-2122/github-profile-readme-ivan-gonzalez-aguiar-alu0100
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-adela-gonzalez-maury-alu0101116204 -s
 gh browse -R ULL-MFP-AET-2122/github-profile-readme-nestor-gonzalez-lopez-alu0100108859 -s
 ```
+
+## Related extensions
+
+To obtain the team names use `gh org-teams-names`:
+
+```
+$ gh org-teams-names
+adal-diaz-farinya-alu0101112251
+adrian-fleitas-de_la_rosa-alu0101024363
+...
+```
